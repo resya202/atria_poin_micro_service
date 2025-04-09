@@ -78,6 +78,40 @@ router.post('/consume-point', verifyApiKey, verifyToken, async (req, res) => {
   }
 });
 
+router.post('/generate-coupon', verifyApiKey, verifyToken, async (req, res) => {
+  const { p_JumlahCoupon, p_CouponAmt } = req.body;
+  const keypass = process.env.SYSTEM_KEYPASS;
+
+  const dataToHash = `%${p_JumlahCoupon}%${p_CouponAmt}%${keypass}%`;
+  const p_keypass = crypto.createHash('sha256').update(dataToHash).digest('hex').toUpperCase();
+
+  try {
+    const response = await axios.post('http://175.103.47.241:4403/api/atria/CouponVoucher/Create', {
+      p_JumlahCoupon,
+      p_CouponAmt,
+      p_keypass
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const result = response.data?.data?.[0] || response.data;
+
+    res.json({
+      status: 'success',
+      message: 'Coupon berhasil dibuat',
+      data: result
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Gagal generate coupon',
+      response: error.message || error
+    });
+  }
+});
 
 // Login
 router.post('/login', (req, res) => {
