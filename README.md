@@ -103,7 +103,7 @@ curl --location 'http://localhost:3000/api/consume-point' --header 'Authorizatio
 ### 2. 📝 Insert Point
 
 **Endpoint**: `POST /api/insert-point`
-
+**Note:( p_ReceiptNo = Nomor Receipt yg di dapatkan dari nav )**
 **Deskripsi**: Mengirimkan data Store, Receipt, dan Point ke API eksternal untuk disimpan.
 
 #### Header:
