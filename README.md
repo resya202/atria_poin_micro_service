@@ -178,7 +178,7 @@ curl --location 'http://localhost:3000/api/insert-point' --header 'Authorization
 
 ---
 
-### 3. 📝 Generate Coupon or Voucher
+### 4. 📝 Generate Coupon or Voucher
 
 **Endpoint**: `POST /api/generate-coupon`
 
