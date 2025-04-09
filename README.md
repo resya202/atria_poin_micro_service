@@ -1,7 +1,7 @@
 
 # 📦 API ATRIA System
 
-Sebuah API sederhana untuk integrasi sistem ATRIA yang berfungsi menghitung dan menginsert point dari transaksi pembelian berdasarkan Store dan Item (EndPoint lainnya menyusul ya mas bro).
+Sebuah API sederhana untuk integrasi sistem ATRIA yang berfungsi menghitung dan menginsert point dari transaksi pembelian berdasarkan Store dan Item ( EndPoint lainnya menyusul ya mas bro ).
 
 ---
 
@@ -141,6 +141,40 @@ curl --location 'http://localhost:3000/api/insert-point' --header 'Authorization
   }
 }
 ```
+---
+
+## 🔁 Alur Pemakaian Endpoint: Calculate & Insert Point
+
+1. **Saat Transaksi:**
+   - Gunakan endpoint `/api/consume-point` untuk menghitung estimasi poin dari item yang dibeli customer.
+   - Informasikan hasil estimasi poin kepada customer sebagai bentuk reward/cashback.
+
+2. **Setelah Customer Melakukan Pembayaran:**
+   - Lakukan proses konfirmasi transaksi melalui sistem admin/CMS.
+   - Pastikan data transaksi telah dimasukkan ke sistem NAV.
+
+3. **Langkah Teknis Insert Point:**
+   - Pastikan sudah mendapatkan *Receipt Number* dari sistem NAV.
+   - Simpan transaksi terlebih dahulu di NAV menggunakan endpoint internal.
+
+4. **Gunakan Endpoint `/api/insert-point`:**
+   - Endpoint ini digunakan untuk menyimpan data poin ke sistem NAV.
+   - Penting: Jika data transaksi belum ada di NAV, maka insert point akan gagal walau request berhasil secara teknis.
+
+5. **Validasi dan Monitoring:**
+   - Cek response endpoint `insert-point`. Jika response adalah:
+     ```json
+     {
+       "status": "success",
+       "message": "Point berhasil diinsert",
+       "data": {
+         "response_code": 200,
+         "response_desc": "Insert Success"
+       }
+     }
+     ```
+     maka proses berhasil.
+   - Jika response mengandung pesan error (misalnya `connect ECONNREFUSED`), berarti integrasi ke NAV bermasalah atau transaksi belum ditemukan.
 
 ---
 
