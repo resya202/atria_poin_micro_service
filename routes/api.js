@@ -78,6 +78,40 @@ router.post('/calculate-point', verifyApiKey, verifyToken, async (req, res) => {
   }
 });
 
+
+router.post('/calculate-point-member', verifyApiKey, verifyToken, async (req, res) => {
+  const { p_StoreNo, p_CardNo } = req.body;
+  const keypass = process.env.SYSTEM_KEYPASS;
+
+  const dataToHash = `%${p_StoreNo}%${p_CardNo}%${keypass}%`;
+  const p_keypass = crypto.createHash('sha256').update(dataToHash).digest('hex').toUpperCase();
+
+  try {
+    const response = await axios.post('http://175.103.47.241:4403/api/atria/calculate_point_member', {
+      p_StoreNo,
+      p_CardNo,
+      p_keypass
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    const result = response.data?.data?.[0]; // ambil data pertama
+
+    res.json({
+      status: 'success',
+      message: 'Poin member berhasil dihitung',
+      data: result
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message,
+      response: error.response?.data || null
+    });
+  }
+});
+
 router.post('/generate-coupon', verifyApiKey, verifyToken, async (req, res) => {
   const { p_JumlahCoupon, p_CouponAmt } = req.body;
   const keypass = process.env.SYSTEM_KEYPASS;

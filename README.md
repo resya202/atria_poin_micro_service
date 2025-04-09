@@ -143,6 +143,49 @@ curl --location 'http://localhost:3000/api/insert-point' --header 'Authorization
 ```
 ---
 
+### 3. 📝 Calculate Point Member
+
+**Endpoint**: `POST /api/calculate-point-member`
+**Note:( p_ReceiptNo = Nomor Receipt yg di dapatkan dari nav )**
+**Deskripsi**: Mengirimkan data Store, Receipt, dan Point ke API eksternal untuk disimpan.
+
+#### Header:
+```http
+Authorization: Bearer <JWT_TOKEN>
+x-api-key: <API_KEY>
+Content-Type: application/json
+```
+
+#### Body:
+```json
+{
+  "p_StoreNo": "80011",
+  "p_ReceiptNo": "111000022",
+  "p_PointAmt": 100000
+}
+```
+
+#### Contoh CURL:
+```bash
+curl --location 'http://localhost:3000/api/calculate-point-member' --header 'Authorization: Bearer <JWT_TOKEN>' --header 'x-api-key: <API_KEY>' --header 'Content-Type: application/json' --data '{
+  "p_StoreNo": "80011",
+  "p_CardNo": "10102920"
+}'
+```
+
+#### Response:
+```json
+{
+    "status": "success",
+    "message": "Poin member berhasil dihitung",
+    "data": {
+        "CardNo": "10102920",
+        "FinalBalance": 0
+    }
+}
+```
+---
+
 ## 🔁 Alur Pemakaian Endpoint: Calculate & Insert Point
 
 1. **Saat Transaksi:**
