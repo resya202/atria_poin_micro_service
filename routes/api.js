@@ -45,7 +45,7 @@ router.post('/insert-point', verifyApiKey, verifyToken, async (req, res) => {
   }
 });
 
-router.post('/consume-point', verifyApiKey, verifyToken, async (req, res) => {
+router.post('/calculate-point', verifyApiKey, verifyToken, async (req, res) => {
   const { p_StoreNo, p_ItemNo } = req.body;
   const keypass = process.env.SYSTEM_KEYPASS;
 

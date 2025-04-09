@@ -52,7 +52,7 @@ Sebuah API sederhana untuk integrasi sistem ATRIA yang berfungsi menghitung dan 
 
 ### 1. 🧮 Hitung Point
 
-**Endpoint**: `POST /api/consume-point`
+**Endpoint**: `POST /api/calculate-point`
 
 **Deskripsi**: Mengirimkan data Store dan Item untuk menghitung point dari API eksternal.
 
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 #### Contoh CURL:
 ```bash
-curl --location 'http://localhost:3000/api/consume-point' --header 'Authorization: Bearer <JWT_TOKEN>' --header 'x-api-key: <API_KEY>' --header 'Content-Type: application/json' --data '{
+curl --location 'http://localhost:3000/api/calculate-point' --header 'Authorization: Bearer <JWT_TOKEN>' --header 'x-api-key: <API_KEY>' --header 'Content-Type: application/json' --data '{
   "p_StoreNo": "80011",
   "p_ItemNo": "24010811"
 }'
@@ -176,6 +176,55 @@ curl --location 'http://localhost:3000/api/insert-point' --header 'Authorization
      maka proses berhasil.
    - Jika response mengandung pesan error (misalnya `connect ECONNREFUSED`), berarti integrasi ke NAV bermasalah atau transaksi belum ditemukan.
 
+---
+
+### 3. 📝 Generate Coupon or Voucher
+
+**Endpoint**: `POST /api/generate-coupon`
+
+**Deskripsi**: Mengirimkan data Store, Receipt, dan Point ke API eksternal untuk disimpan.
+
+#### Header:
+```http
+Authorization: Bearer <JWT_TOKEN>
+x-api-key: <API_KEY>
+Content-Type: application/json
+```
+
+#### Body:
+```json
+{
+  "p_StoreNo": "80011",
+  "p_ReceiptNo": "111000022",
+  "p_PointAmt": 100000
+}
+```
+
+#### Contoh CURL:
+```bash
+curl --location 'http://localhost:3000/api/generate-coupon' \
+--header 'Authorization: Bearer <JWT_TOKEN>' \
+--header 'x-api-key: <API_KEY>' \
+--header 'Content-Type: application/json' \
+--data '{
+  "p_JumlahCoupon": 5,
+  "p_CouponAmt": 50000
+}'
+```
+
+#### Response:
+```json
+{
+    "status": "success",
+    "message": "Coupon berhasil dibuat",
+    "data": {
+        "Code": "[901819868,901819869,901819870,901819871,901819872]",
+        "CouponAmt": 50000,
+        "JumlahCoupon": 5,
+        "Message": "Coupon/Voucher Berhasil Di generate"
+    }
+}
+```
 ---
 
 ## ⚙️ Environment Variables (.env)
