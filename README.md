@@ -146,8 +146,8 @@ curl --location 'http://localhost:3000/api/insert-point' --header 'Authorization
 ### 3. 📝 Calculate Point Member
 
 **Endpoint**: `POST /api/calculate-point-member`
-**Note:( p_ReceiptNo = Nomor Receipt yg di dapatkan dari nav )**
-**Deskripsi**: Mengirimkan data Store, Receipt, dan Point ke API eksternal untuk disimpan.
+
+**Deskripsi**: Mengirimkan data Store, dan Nomor Member / Card Number ke API eksternal.
 
 #### Header:
 ```http
@@ -160,8 +160,7 @@ Content-Type: application/json
 ```json
 {
   "p_StoreNo": "80011",
-  "p_ReceiptNo": "111000022",
-  "p_PointAmt": 100000
+  "p_CardNo": "10102920"
 }
 ```
 
@@ -225,7 +224,7 @@ curl --location 'http://localhost:3000/api/calculate-point-member' --header 'Aut
 
 **Endpoint**: `POST /api/generate-coupon`
 
-**Deskripsi**: Mengirimkan data Store, Receipt, dan Point ke API eksternal untuk disimpan.
+**Deskripsi**: Mengirimkan data Jumlah Coupon/Voucher, dan Coupon Amount ke API eksternal.
 
 #### Header:
 ```http
@@ -237,9 +236,8 @@ Content-Type: application/json
 #### Body:
 ```json
 {
-  "p_StoreNo": "80011",
-  "p_ReceiptNo": "111000022",
-  "p_PointAmt": 100000
+  "p_JumlahCoupon": 5,
+  "p_CouponAmt": 50000
 }
 ```
 
