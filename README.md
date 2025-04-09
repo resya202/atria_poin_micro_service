@@ -268,6 +268,53 @@ curl --location 'http://localhost:3000/api/generate-coupon' \
 ```
 ---
 
+### 5. 📝 Tier Members
+
+**Endpoint**: `POST /api/tier-member`
+
+**Deskripsi**: Mengirimkan data store, dan Card Number Member ke API eksternal.
+
+#### Header:
+```http
+Authorization: Bearer <JWT_TOKEN>
+x-api-key: <API_KEY>
+Content-Type: application/json
+```
+
+#### Body:
+```json
+{
+  "p_StoreNo": "80011",
+  "p_CardNo": "12400006"
+}
+```
+
+#### Contoh CURL:
+```bash
+curl --location 'http://localhost:3000/api/tier-member' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: your_api_key' \
+--header 'Authorization: Bearer your_jwt_token' \
+--data '{
+    "p_StoreNo": "80011",
+    "p_CardNo": "12400006"
+}'
+```
+
+#### Response:
+```json
+{
+    "status": "success",
+    "message": "Data tier member berhasil didapat",
+    "data": {
+        "CardNo": "12400006",
+        "Tier": 1,
+        "HistoryBelanja": 0
+    }
+}
+```
+---
+
 ## ⚙️ Environment Variables (.env)
 
 ```env
