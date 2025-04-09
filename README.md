@@ -1,7 +1,7 @@
 
 # 📦 API ATRIA System
 
-Sebuah API sederhana untuk integrasi sistem ATRIA yang berfungsi menghitung dan menginsert point dari transaksi pembelian berdasarkan Store dan Item.
+Sebuah API sederhana untuk integrasi sistem ATRIA yang berfungsi menghitung dan menginsert point dari transaksi pembelian berdasarkan Store dan Item (EndPoint lainnya menyusul ya mas bro).
 
 ---
 
