@@ -1,0 +1,24 @@
+name: ATRIA-POIN-RUNNER
+
+on:
+  workflow_run:
+    workflows: ["ATRIA-POIN-MICROSERVICE-SERVER-CI"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: poin-runner-dev
+
+    steps:
+      - name: pull docker container
+        run: sudo docker pull resya202/atria-poin-microservice-server:latest
+
+      - name: delete old docker container
+        run: sudo docker rm -f atria-poin-container || true
+      
+      - name: prune unused docker volumes
+        run: sudo docker system prune --volumes --force
+
+      - name: run docker container
+        run: sudo docker run -d -p 3330:3330 --name atria-poin-container resya202/atria-poin-microservice-server:latest
