@@ -2,4 +2,4 @@
 
 # Run the application
 echo "Starting the server..."
-npm run dev
+npm run start
