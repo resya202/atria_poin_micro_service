@@ -22,6 +22,9 @@ COPY entrypoint.sh /app/entrypoint.sh
 # Make the entrypoint script executable
 RUN chmod +x /app/entrypoint.sh
 
+RUN chmod +x app.js
+
+
 # Set the entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 
