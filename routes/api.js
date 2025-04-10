@@ -9,6 +9,10 @@ const router = express.Router();
 
 require('dotenv').config();
 
+router.get('/health-check', (req, res) => {
+  res.status(200).json({ message: 'Service is healthy' });
+});
+
 // Endpoint protected dengan API Key dan Token
 
 router.post('/insert-point', verifyApiKey, verifyToken, async (req, res) => {
