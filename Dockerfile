@@ -16,5 +16,14 @@ COPY . .
 # Expose the application port
 EXPOSE 3330
 
+# Add an entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
+
 # Start the application
 CMD ["npm", "run", "dev"]
